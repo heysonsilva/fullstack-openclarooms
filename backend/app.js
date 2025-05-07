@@ -3,21 +3,21 @@ import express from "express";
 const app = express()
 app.use(express.json())
 
+const message = {
+    message: 'Server Running :D'
+}
+
 app.use((req, res, next)=>{
-    console.log("Requisição Recebida com Sucesso !!")
+    res.json(message)
     next()
 })
 
-app.use((req, res, next)=>{
-    const STATUSCODE = 200
-    res.status(STATUSCODE)
-    console.log("STATUS CODE ALTERADO COM SUCESSO !!")
-    next()
-})
-
+// middleware que mostra o endereço ip do host que ta acessando
 app.use((req, res)=>{
-    res.send({'message':'my first server app'})
-    console.log("resposta enviada com sucesso !!")
+    const infoHeader = req.headers
+    const IP_ADDRESS = infoHeader.host
+    console.log(IP_ADDRESS)
 })
+
 
 export default app;
